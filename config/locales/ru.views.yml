@@ -1,0 +1,8 @@
+ru:
+  web:
+    auth:
+      callback:
+        success: Вы успешно вошли в систему!
+
+      delete:
+        success: Вы успешно вышли из системы!

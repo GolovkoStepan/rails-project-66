@@ -1,0 +1,34 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  email      :string           not null
+#  image_url  :string
+#  name       :string
+#  nickname   :string
+#  token      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+one:
+  email: user1@example.com
+  name: User1
+  nickname: User1
+  token: 32hu9hf2uhifu4fh73f8h7
+
+two:
+  email: user2@example.com
+  name: User2
+  nickname: User2
+  token: j9hodu8fy387gfo3uugf8g

@@ -1,0 +1,15 @@
+ru:
+  shared:
+    auth:
+      success: Аутентификация успешна
+      error: Ошибка аутентификации
+      logout: Вы вышли из системы
+
+    nav:
+      home_link: Github Quality
+      main: Главная
+      log_out: Выйти
+      github_login: Войти
+    
+    footer:
+      footer_text: Github Quality
