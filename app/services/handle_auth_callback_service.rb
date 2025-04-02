@@ -8,7 +8,7 @@ class HandleAuthCallbackService < ApplicationService
       user.name      = github_info['name']
       user.nickname  = github_info['nickname']
       user.image_url = github_info['image']
-      user.token     = github_info['token']
+      user.token     = github_credentials['token']
 
       user.save!
     end
@@ -18,5 +18,9 @@ class HandleAuthCallbackService < ApplicationService
 
   def github_info
     @github_info ||= auth_params['info']
+  end
+
+  def github_credentials
+    @github_credentials ||= auth_params['credentials']
   end
 end

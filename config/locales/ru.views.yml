@@ -6,3 +6,21 @@ ru:
 
       delete:
         success: Вы успешно вышли из системы!
+
+    repositories:
+      show:
+        run_check: Запустить проверку
+        repository_not_found: Репозиторий не найден
+
+      index:
+        title: Список репозиториев
+        new: Добавить репозиторий
+        no_added_repositories: У вас нет добавленных репозиториев
+
+      new:
+        title: Новый репозиторий
+        create: Добавить репозиторий
+        repository_github: Репозиторий Github
+
+      create:
+        success: Репозиторий был успешно добавлен

@@ -9,6 +9,9 @@
             = link_to t('.main'), root_path, class: 'nav-link link-dark'
 
           - if user_signed_in?
+            li.nav-item
+              = link_to t('.repositories'), repositories_path, class: 'nav-link link-dark'
+
             .d-flex.ms-auto
               li.nav-item
                 .nav-link.link-dark.text-muted

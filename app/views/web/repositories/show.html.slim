@@ -1,0 +1,32 @@
+.d-flex.justify-content-between.mb-4
+  h4 = @repository.full_name
+  = link_to '#', class: 'btn btn-success' do
+    i.bi.bi-play.me-2
+    = t('.run_check')
+
+.card
+  .card-body
+    p
+      strong.me-3 = Repository.human_attribute_name(:full_name)
+      = @repository.full_name
+    p
+      strong.me-3 = Repository.human_attribute_name(:language)
+      = @repository.language.capitalize
+
+    p
+      strong.me-3 = Repository.human_attribute_name(:created_at)
+      = @repository.created_at.strftime("%B %d, %Y %H:%M")
+
+    p
+      strong.me-3 = Repository.human_attribute_name(:updated_at)
+      = @repository.updated_at.strftime("%B %d, %Y %H:%M")
+
+    hr
+    
+    p
+      strong.me-3 = Repository.human_attribute_name(:clone_url)
+      = link_to @repository.clone_url, @repository.clone_url, target: '_blank'
+
+    p.mb-0
+      strong.me-3 = Repository.human_attribute_name(:ssh_url)
+      = @repository.ssh_url

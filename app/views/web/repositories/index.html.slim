@@ -1,0 +1,21 @@
+.d-flex.justify-content-between.mb-4
+  h4 = t('.title')
+  = link_to new_repository_path, class: 'btn btn-success' do
+    i.bi.bi-plus.me-2
+    = t('.new')
+
+- if @repositories.any?
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th scope="col" = Repository.human_attribute_name(:name)
+        th scope="col" = Repository.human_attribute_name(:language)
+        th scope="col" = Repository.human_attribute_name(:last_check_state)
+    tbody
+      - @repositories.each do |repository|
+        tr
+          td = link_to repository.name, repository_path(repository)
+          td = repository.language.capitalize
+          td = repository.last_check_state
+- else
+  p.text-center = t('.no_added_repositories')

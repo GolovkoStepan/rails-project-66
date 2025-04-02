@@ -21,6 +21,9 @@ gem 'omniauth-rails_csrf_protection'
 
 gem 'dry-initializer'
 
+gem 'after_commit_everywhere'
+gem 'simple_form'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
   gem 'faker'

@@ -4,10 +4,12 @@ ru:
       success: Аутентификация успешна
       error: Ошибка аутентификации
       logout: Вы вышли из системы
+      need_authentication: Необходима аутентификация
 
     nav:
       home_link: Github Quality
       main: Главная
+      repositories: Репозитории
       log_out: Выйти
       github_login: Войти
     

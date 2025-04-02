@@ -1,0 +1,46 @@
+# == Schema Information
+#
+# Table name: repositories
+#
+#  id         :integer          not null, primary key
+#  clone_url  :string
+#  full_name  :string
+#  language   :string
+#  name       :string
+#  ssh_url    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  github_id  :integer
+#  user_id    :integer          not null
+#
+# Indexes
+#
+#  index_repositories_on_github_id  (github_id) UNIQUE
+#  index_repositories_on_user_id    (user_id)
+#
+# Foreign Keys
+#
+#  user_id  (user_id => users.id)
+#
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  name: "Repo 1"
+  github_id: 12345
+  full_name: "user/repo-1"
+  language: "ruby"
+  clone_url: "https://github.com/user/repo-1.git"
+  ssh_url: "git@github.com:user/repo-1.git"
+  user: one
+
+two:
+  name: "Repo 2"
+  github_id: 67890
+  full_name: "user/repo-2"
+  language: "javascript"
+  clone_url: "https://github.com/user/repo-2.git"
+  ssh_url: "git@github.com:user/repo-2.git"
+  user: two
