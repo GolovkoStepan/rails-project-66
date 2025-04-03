@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_31_184012) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_03_193105) do
   create_table "repositories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
@@ -25,6 +25,29 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_31_184012) do
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
+  create_table "repository_check_offenses", force: :cascade do |t|
+    t.integer "check_id", null: false
+    t.string "file_path"
+    t.string "rule_name"
+    t.text "message"
+    t.integer "line"
+    t.integer "column"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_repository_check_offenses_on_check_id"
+  end
+
+  create_table "repository_checks", force: :cascade do |t|
+    t.integer "repository_id", null: false
+    t.string "aasm_state", null: false
+    t.boolean "passed", default: false, null: false
+    t.integer "offenses_count", default: 0, null: false
+    t.string "commit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "name"
@@ -37,4 +60,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_31_184012) do
   end
 
   add_foreign_key "repositories", "users"
+  add_foreign_key "repository_check_offenses", "checks"
+  add_foreign_key "repository_checks", "repositories"
 end

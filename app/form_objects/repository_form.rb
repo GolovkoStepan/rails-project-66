@@ -38,13 +38,15 @@ class RepositoryForm < ApplicationForm
   end
 
   def octokit_client
-    @octokit_client ||= Octokit::Client.new(access_token: user.token, auto_paginate: true)
+    @octokit_client ||=
+      ApplicationContainer[:github_client]
+      .new(access_token: user.token, auto_paginate: true)
   end
 
   def user_repositories
     @user_repositories ||=
       octokit_client
       .repos
-      .select { |repo| Repository.languages.keys.include?(repo[:language]&.downcase) }
+      .select { |repo| Repository::AVAILABLE_LANGUAGES.include?(repo[:language]&.downcase&.to_sym) }
   end
 end

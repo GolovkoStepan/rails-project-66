@@ -19,8 +19,10 @@ gem 'octokit'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 
+gem 'dry-container'
 gem 'dry-initializer'
 
+gem 'aasm'
 gem 'after_commit_everywhere'
 gem 'simple_form'
 

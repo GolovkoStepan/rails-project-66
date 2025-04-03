@@ -3,6 +3,8 @@ ru:
     models:
       user: Пользователь
       repository: Репозиторий
+      repository/check: Проверка репозитория
+      repository/check_offense: Нарушение
 
     attributes:
       repository:
@@ -13,6 +15,27 @@ ru:
         clone_url: HTTP URL
         language: Язык программирования
         last_check_state: Статус последней проверки
+        created_at: Дата создания
+        updated_at: Дата обновления
+
+      repository/check:
+        commit_id: ID коммита
+        passed: Пройдено
+        offenses_count: Количество нарушений
+        aasm_state: Статус
+        aasm_state/created: Создано
+        aasm_state/checking: Проверяется
+        aasm_state/finished: Завершено
+        aasm_state/failed: Неуспешно
+        created_at: Дата создания
+        updated_at: Дата обновления
+
+      repository/check_offense:
+        message: Сообщение
+        rule_name: Идентификатор правила
+        line: Номер строки
+        column: Позиция в строке
+        file_path: Путь к файлу
         created_at: Дата создания
         updated_at: Дата обновления
 

@@ -28,6 +28,7 @@ class Repository < ApplicationRecord
   AVAILABLE_LANGUAGES = %i[ruby].freeze
 
   belongs_to :user
+  has_many :checks, dependent: :destroy
 
   enum :language, AVAILABLE_LANGUAGES.index_with(&:to_s), validate: true
 
