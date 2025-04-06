@@ -14,6 +14,8 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
+gem 'pg'
+
 gem 'faraday-retry'
 gem 'octokit'
 gem 'omniauth-github'
@@ -23,10 +25,12 @@ gem 'dry-container'
 gem 'dry-initializer'
 
 gem 'aasm'
-gem 'activejob-uniqueness'
 gem 'after_commit_everywhere'
 gem 'kaminari'
 gem 'simple_form'
+
+gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'

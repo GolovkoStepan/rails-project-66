@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class CheckRepositoryJob < ApplicationJob
-  queue_as :default
-
-  unique :until_executed
+  sidekiq_options lock: :until_executed, on_conflict: :raise
 
   # @param [Integer] repository_id
   def perform(repository_id)

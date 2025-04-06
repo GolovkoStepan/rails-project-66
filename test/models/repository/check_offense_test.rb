@@ -4,7 +4,7 @@
 #
 # Table name: repository_check_offenses
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  column     :integer
 #  file_path  :string
 #  line       :integer
@@ -12,7 +12,7 @@
 #  rule_name  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  check_id   :integer          not null
+#  check_id   :bigint           not null
 #
 # Indexes
 #
@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  check_id  (check_id => repository_checks.id)
+#  fk_rails_...  (check_id => repository_checks.id)
 #
 require 'test_helper'
 

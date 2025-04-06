@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
+class ApplicationJob
+  include Sidekiq::Job
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  sidekiq_options queue: :async_jobs, retry: false
+
+  def perform(*)
+    raise NotImplementedError
+  end
 end

@@ -10,10 +10,10 @@ class Web::Repositories::ChecksController < Web::ApplicationController
 
   def create
     repository = Repository.find(params[:repository_id])
-    CheckRepositoryJob.perform_later(repository.id)
+    CheckRepositoryJob.perform_async(repository.id)
 
     redirect_to repository_path(repository), notice: t('.success')
-  rescue ActiveJob::Uniqueness::JobNotUnique
+  rescue SidekiqUniqueJobs::Conflict
     redirect_to repository_path(repository), alert: t('.already_in_progress')
   end
 end

@@ -4,14 +4,14 @@
 #
 # Table name: repository_checks
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  aasm_state     :string           not null
 #  offenses_count :integer          default(0), not null
 #  passed         :boolean          default(FALSE), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  commit_id      :string
-#  repository_id  :integer          not null
+#  repository_id  :bigint           not null
 #
 # Indexes
 #
@@ -19,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  repository_id  (repository_id => repositories.id)
+#  fk_rails_...  (repository_id => repositories.id)
 #
 require 'test_helper'
 

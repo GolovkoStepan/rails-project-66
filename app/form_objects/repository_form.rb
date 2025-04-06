@@ -5,6 +5,8 @@ class RepositoryForm < ApplicationForm
 
   attr_reader :repository, :user
 
+  after_commit :enqueue_check_repository_job
+
   class << self
     delegate :with, to: :new
   end
@@ -48,5 +50,9 @@ class RepositoryForm < ApplicationForm
       octokit_client
       .repos
       .select { |repo| Repository::AVAILABLE_LANGUAGES.include?(repo[:language]&.downcase&.to_sym) }
+  end
+
+  def enqueue_check_repository_job
+    CheckRepositoryJob.perform_async(repository.id)
   end
 end

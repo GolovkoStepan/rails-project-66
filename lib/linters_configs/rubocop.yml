@@ -3,11 +3,11 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
   Exclude:
-    - 'bin/**'
-    - 'db/schema.rb'
-    - 'db/migrate/**'
-    - 'vendor/**/*'
-    - 'node_modules/**/*'
+    - '**/bin/**'
+    - '**/db/schema.rb'
+    - '**/db/migrate/**'
+    - '**/vendor/**/*'
+    - '**/node_modules/**/*'
 
 plugins:
   - rubocop-rails

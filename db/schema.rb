@@ -11,8 +11,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2025_04_03_193105) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "repositories", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name"
     t.integer "github_id"
     t.string "full_name"
@@ -26,7 +29,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_03_193105) do
   end
 
   create_table "repository_check_offenses", force: :cascade do |t|
-    t.integer "check_id", null: false
+    t.bigint "check_id", null: false
     t.string "file_path"
     t.string "rule_name"
     t.text "message"
@@ -38,7 +41,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_03_193105) do
   end
 
   create_table "repository_checks", force: :cascade do |t|
-    t.integer "repository_id", null: false
+    t.bigint "repository_id", null: false
     t.string "aasm_state", null: false
     t.boolean "passed", default: false, null: false
     t.integer "offenses_count", default: 0, null: false

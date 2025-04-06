@@ -4,7 +4,7 @@
 #
 # Table name: repositories
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  clone_url  :string
 #  full_name  :string
 #  language   :string
@@ -13,7 +13,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  github_id  :integer
-#  user_id    :integer          not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
@@ -22,7 +22,7 @@
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Repository < ApplicationRecord
   AVAILABLE_LANGUAGES = %i[ruby].freeze
