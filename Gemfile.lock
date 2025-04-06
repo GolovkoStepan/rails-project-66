@@ -50,6 +50,9 @@ GEM
     activejob (7.2.2.1)
       activesupport (= 7.2.2.1)
       globalid (>= 0.3.6)
+    activejob-uniqueness (0.4.0)
+      activejob (>= 4.2, < 8.1)
+      redlock (>= 2.0, < 3)
     activemodel (7.2.2.1)
       activesupport (= 7.2.2.1)
     activerecord (7.2.2.1)
@@ -89,7 +92,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (7.0.0)
+    brakeman (7.0.2)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -147,6 +150,18 @@ GEM
     json (2.10.2)
     jwt (2.10.1)
       base64
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -276,8 +291,12 @@ GEM
     rake (13.2.1)
     rdoc (6.13.1)
       psych (>= 4.0.0)
+    redis-client (0.24.0)
+      connection_pool
+    redlock (2.0.6)
+      redis-client (>= 0.14.1, < 1.0.0)
     regexp_parser (2.10.0)
-    reline (0.6.0)
+    reline (0.6.1)
       io-console (~> 0.5)
     rexml (3.4.1)
     rubocop (1.75.2)
@@ -314,7 +333,7 @@ GEM
       addressable (>= 2.3.5)
       faraday (>= 0.17.3, < 3)
     securerandom (0.4.1)
-    selenium-webdriver (4.30.1)
+    selenium-webdriver (4.31.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -397,6 +416,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  activejob-uniqueness
   after_commit_everywhere
   annotate
   bootsnap
@@ -411,6 +431,7 @@ DEPENDENCIES
   faraday-retry
   jbuilder
   jsbundling-rails
+  kaminari
   octokit
   omniauth-github
   omniauth-rails_csrf_protection

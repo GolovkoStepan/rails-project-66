@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  check_id  (check_id => checks.id)
+#  check_id  (check_id => repository_checks.id)
 #
 require 'test_helper'
 

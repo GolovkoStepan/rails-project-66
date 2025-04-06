@@ -18,7 +18,7 @@
 #
 # Foreign Keys
 #
-#  check_id  (check_id => checks.id)
+#  check_id  (check_id => repository_checks.id)
 #
 
 # This model initially had no columns defined. If you add columns to the

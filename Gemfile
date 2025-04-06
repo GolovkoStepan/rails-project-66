@@ -23,7 +23,9 @@ gem 'dry-container'
 gem 'dry-initializer'
 
 gem 'aasm'
+gem 'activejob-uniqueness'
 gem 'after_commit_everywhere'
+gem 'kaminari'
 gem 'simple_form'
 
 group :development, :test do

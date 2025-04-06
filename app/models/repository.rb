@@ -33,8 +33,4 @@ class Repository < ApplicationRecord
   enum :language, AVAILABLE_LANGUAGES.index_with(&:to_s), validate: true
 
   validates :github_id, uniqueness: true
-
-  def last_check_state
-    false
-  end
 end

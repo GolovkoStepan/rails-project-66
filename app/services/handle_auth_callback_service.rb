@@ -3,6 +3,7 @@
 class HandleAuthCallbackService < ApplicationService
   param :auth_params
 
+  # @return [User]
   def call
     User.find_or_create_by!(email: github_info['email']).tap do |user|
       user.name      = github_info['name']
@@ -12,14 +13,19 @@ class HandleAuthCallbackService < ApplicationService
 
       user.save!
     end
+  rescue StandardError => e
+    logger.error("HandleAuthCallbackService error: #{e.message}")
+    raise e
   end
 
   private
 
+  # @return [Hash]
   def github_info
     @github_info ||= auth_params['info']
   end
 
+  # @return [Hash]
   def github_credentials
     @github_credentials ||= auth_params['credentials']
   end

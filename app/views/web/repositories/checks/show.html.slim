@@ -1,0 +1,56 @@
+.d-flex.justify-content-between.mb-4
+  h3.m-0 = t('.title', repository_name: @check.repository.full_name)
+  = link_to repository_path(@check.repository), class: 'btn btn-success' do
+    i.bi.bi-back.me-2
+    = t('.back')
+
+.card.mb-4
+  .card-body
+    p
+      strong.me-3 = Repository::Check.human_attribute_name(:id)
+      = @check.id
+
+    p
+      strong.me-3 = Repository::Check.human_attribute_name(:commit_id)
+      = link_to_github_commit(@check.repository.full_name, @check.commit_id) if @check.commit_id
+
+    p
+      strong.me-3 = Repository::Check.human_attribute_name(:aasm_state)
+      = @check.aasm.human_state
+
+    p
+      strong.me-3 = Repository::Check.human_attribute_name(:passed)
+      = t(@check.passed)
+
+    p
+      strong.me-3 = Repository::Check.human_attribute_name(:offenses_count)
+      = @check.offenses_count
+
+    p.mb-0
+      strong.me-3 = Repository::Check.human_attribute_name(:created_at)
+      = l(@check.created_at, format: :default)
+
+- if @check.offenses.any?
+  table.table
+    thead
+      tr
+        th scope="col" = Repository::CheckOffense.human_attribute_name(:message)
+        th scope="col" = Repository::CheckOffense.human_attribute_name(:rule_name)
+        th scope="col" = Repository::CheckOffense.human_attribute_name(:location)
+    
+    tbody
+      - @offenses.group_by(&:file_path).each do |file_path, offenses|
+        tr
+          td.table-success colspan='3'
+            = link_to_github_repository_file(@check.repository.full_name, @check.commit_id, file_path)
+
+        - offenses.each do |offense|
+          tr
+            td = offense.message
+            td = offense.rule_name
+            td = "#{offense.line}:#{offense.column}"
+
+  = paginate @offenses
+
+- else
+  p.text-center = t('.no_offenses')

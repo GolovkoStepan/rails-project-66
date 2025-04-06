@@ -1,10 +1,10 @@
 .d-flex.justify-content-between.mb-4
   h3.m-0 = @repository.full_name
-  = link_to '#', class: 'btn btn-success' do
+  = link_to repository_checks_path(@repository), data: { turbo_method: :post }, class: 'btn btn-success' do
     i.bi.bi-play.me-2
     = t('.run_check')
 
-.card
+.card.mb-4
   .card-body
     p
       strong.me-3 = Repository.human_attribute_name(:full_name)
@@ -15,18 +15,44 @@
 
     p
       strong.me-3 = Repository.human_attribute_name(:created_at)
-      = @repository.created_at.strftime("%B %d, %Y %H:%M")
+      = l(@repository.created_at, format: :default)
 
     p
       strong.me-3 = Repository.human_attribute_name(:updated_at)
-      = @repository.updated_at.strftime("%B %d, %Y %H:%M")
+      = l(@repository.updated_at, format: :default)
 
     hr
     
     p
       strong.me-3 = Repository.human_attribute_name(:clone_url)
-      = link_to @repository.clone_url, @repository.clone_url, target: '_blank'
+      = link_to @repository.clone_url, @repository.clone_url, target: '_blank', rel: 'noopener'
 
     p.mb-0
       strong.me-3 = Repository.human_attribute_name(:ssh_url)
       = @repository.ssh_url
+
+- if @checks.any?
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th scope="col" 
+        th scope="col" = Repository::Check.human_attribute_name(:aasm_state)
+        th scope="col" = Repository::Check.human_attribute_name(:commit_id)
+        th scope="col" = Repository::Check.human_attribute_name(:passed)
+        th scope="col" = Repository::Check.human_attribute_name(:created_at)
+
+    tbody
+      - @checks.order(created_at: :desc).each do |check|
+        tr
+          td = link_to repository_check_path(@repository, check) do
+            i.bi.bi-box-arrow-up-right.mx-2
+          
+          td = check.aasm.human_state
+          td = link_to_github_commit(check.repository.full_name, check.commit_id) if check.commit_id
+          td class="#{check.passed? ? 'text-success' : 'text-danger'}" = t(check.passed.to_s)
+          td = l(check.created_at, format: :default)
+
+  = paginate @checks
+
+- else
+  p.text-center = t('.no_checks')

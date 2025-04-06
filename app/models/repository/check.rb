@@ -25,7 +25,7 @@ class Repository::Check < ApplicationRecord
   include AASM
 
   belongs_to :repository
-  has_many :offenses, class_name: 'CheckOffense', dependent: :destroy
+  has_many :offenses, class_name: 'Repository::CheckOffense', dependent: :destroy
 
   aasm column: :aasm_state do
     state :created, initial: true

@@ -1,4 +1,43 @@
 ru:
+  time:
+    formats:
+      default: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+
+  date:
+    month_names:
+      - января
+      - февраля
+      - марта
+      - апреля
+      - мая
+      - июня
+      - июля
+      - августа
+      - сентября
+      - октября
+      - ноября
+      - декабря
+    abbr_month_names:
+      - янв
+      - фев
+      - мар
+      - апр
+      - май
+      - июн
+      - июл
+      - авг
+      - сен
+      - окт
+      - ноя
+      - дек
+    
+  pagination:
+    first: "«"
+    prev: "‹"
+    next: "›"
+    last: "»" 
+
   web:
     auth:
       callback:
@@ -11,6 +50,7 @@ ru:
       show:
         run_check: Запустить проверку
         repository_not_found: Репозиторий не найден
+        no_checks: У репозитория не было запущено ни одной проверки
 
       index:
         title: Список репозиториев
@@ -24,3 +64,13 @@ ru:
 
       create:
         success: Репозиторий был успешно добавлен
+
+      checks:
+        create:
+          success: Проверка была успешно запущена
+          already_in_progress: Проверка уже выполняется
+        
+        show:
+          title: "Проверка репозитория %{repository_name}"
+          back: Вернуться к репозиторию
+          no_offenses: Нарушений не найдено

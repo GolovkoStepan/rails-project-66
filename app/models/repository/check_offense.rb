@@ -20,8 +20,8 @@
 #
 # Foreign Keys
 #
-#  check_id  (check_id => checks.id)
+#  check_id  (check_id => repository_checks.id)
 #
 class Repository::CheckOffense < ApplicationRecord
-  belongs_to :check
+  belongs_to :check, class_name: 'Repository::Check', counter_cache: :offenses_count
 end

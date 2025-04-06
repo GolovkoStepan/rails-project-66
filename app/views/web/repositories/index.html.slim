@@ -16,6 +16,8 @@
         tr
           td = link_to repository.name, repository_path(repository)
           td = repository.language.capitalize
-          td = repository.last_check_state
+          td = repository.checks.order(created_at: :desc).first&.aasm&.human_state
+
+  = paginate @repositories
 - else
   p.text-center = t('.no_added_repositories')

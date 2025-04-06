@@ -1,4 +1,7 @@
 ru:
+  true: Да
+  false: Нет
+
   activerecord:
     models:
       user: Пользователь
@@ -19,6 +22,7 @@ ru:
         updated_at: Дата обновления
 
       repository/check:
+        id: ID проверки
         commit_id: ID коммита
         passed: Пройдено
         offenses_count: Количество нарушений
@@ -31,6 +35,7 @@ ru:
         updated_at: Дата обновления
 
       repository/check_offense:
+        location: Строка и символ
         message: Сообщение
         rule_name: Идентификатор правила
         line: Номер строки
