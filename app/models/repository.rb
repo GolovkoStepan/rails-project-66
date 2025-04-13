@@ -25,7 +25,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Repository < ApplicationRecord
-  AVAILABLE_LANGUAGES = %i[ruby].freeze
+  AVAILABLE_LANGUAGES = %i[ruby javascript].freeze
 
   belongs_to :user
   has_many :checks, dependent: :destroy

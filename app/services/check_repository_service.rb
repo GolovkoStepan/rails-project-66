@@ -2,7 +2,8 @@
 
 class CheckRepositoryService < ApplicationService
   LINTERS = {
-    ruby: LinterRunner::Rubocop
+    ruby: LinterRunner::Rubocop,
+    javascript: LinterRunner::Eslint
   }.with_indifferent_access.freeze
 
   param :repository

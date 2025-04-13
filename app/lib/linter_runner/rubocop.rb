@@ -30,10 +30,12 @@ module LinterRunner
       end.compact
     end
 
+    # @return [String]
     def repository_full_name
       @repository_full_name ||= repository_path.to_s.split('/').last(2).join('/')
     end
 
+    # @return [String]
     def trim_file_path(file_path)
       file_path.sub(%r{.*#{repository_full_name}/}, '')
     end
