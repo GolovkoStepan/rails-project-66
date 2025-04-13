@@ -28,5 +28,7 @@ module RailsProject66
     #
     config.time_zone = 'Europe/Moscow'
     # config.eager_load_paths << Rails.root.join("extras")
+
+    routes.default_url_options = { host: ENV.fetch('BASE_URL', 'localhost:3000') }
   end
 end
