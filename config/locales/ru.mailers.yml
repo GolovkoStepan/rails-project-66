@@ -1,0 +1,7 @@
+ru:
+  repository_check_mailer:
+    report_a_failure:
+      subject: 'Проверка кода вашего проекта %{repository_name}'
+      have_offenses: Проверка вашего проекта %{repository_name} завершена. В ходе проверки обнаружены замечания. Более подробная информация доступна по ссылке ниже
+      check_failed: В ходе проверки вашего проекта %{repository_name} произошла ошибка. Более подробная информация доступна по ссылке ниже
+      farewell: С уважением, команда проекта Github Quality

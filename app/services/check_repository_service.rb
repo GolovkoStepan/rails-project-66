@@ -19,10 +19,11 @@ class CheckRepositoryService < ApplicationService
     finish_check!
     logger.info("Check finished. Offenses count: #{check.offenses.count}")
   rescue StandardError => e
-    logger.info("CheckRepositoryService failed: #{e}")
+    logger.info("CheckRepositoryService failed: #{e.message}")
     check.fail!
   ensure
     git_client.remove_repository
+    send_report_a_failure if check.failed? || !check.passed?
   end
 
   private
@@ -72,5 +73,12 @@ class CheckRepositoryService < ApplicationService
   def finish_check!
     check.update!(passed: check.offenses.none?)
     check.finish!
+  end
+
+  # @return [Void]
+  def send_report_a_failure
+    RepositoryCheckMailer.with(check:).report_a_failure.deliver_now!
+  rescue StandardError => e
+    logger.info("CheckRepositoryService failed: #{e.message}")
   end
 end

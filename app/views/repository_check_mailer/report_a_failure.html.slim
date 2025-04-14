@@ -1,0 +1,8 @@
+- if @check.failed?
+  p = t('.check_failed', repository_name: @repository.name)
+- else
+  p = t('.have_offenses', repository_name: @repository.name)
+
+= link_to(repository_check_url(@repository, @check), repository_check_url(@repository, @check))
+
+p = t('.farewell')
