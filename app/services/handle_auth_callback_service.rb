@@ -14,7 +14,7 @@ class HandleAuthCallbackService < ApplicationService
       user.save!
     end
   rescue StandardError => e
-    logger.error("HandleAuthCallbackService error: #{e.message}")
+    logger.error("HandleAuthCallbackService failed: #{e.message}")
     raise e
   end
 

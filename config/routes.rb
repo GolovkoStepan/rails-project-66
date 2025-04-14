@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
   get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
 
+  if Rails.env.development?
+    require 'sidekiq/web'
+    require 'sidekiq_unique_jobs/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   scope module: :web do
     root 'home#index'
 
@@ -21,5 +27,9 @@ Rails.application.routes.draw do
     resources :repositories, only: %i[index show new create] do
       resources :checks, only: %i[show create], module: :repositories
     end
+  end
+
+  namespace :api do
+    resources :checks, only: [:create]
   end
 end
