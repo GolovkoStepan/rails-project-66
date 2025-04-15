@@ -2,8 +2,8 @@
 
 class CheckRepositoryService < ApplicationService
   LINTERS = {
-    ruby: LinterRunner::Rubocop,
-    javascript: LinterRunner::Eslint
+    ruby: ApplicationContainer[:rubocop],
+    javascript: ApplicationContainer[:eslint]
   }.with_indifferent_access.freeze
 
   param :repository
@@ -40,7 +40,7 @@ class CheckRepositoryService < ApplicationService
 
   # @return [GitClient]
   def git_client
-    @git_client ||= GitClient.new(
+    @git_client ||= ApplicationContainer[:git_client].new(
       repository_name: repository.full_name,
       repository_url: repository.clone_url
     )

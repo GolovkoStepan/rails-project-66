@@ -24,8 +24,16 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  repository: one
+  commit_id: "q1w2e4r"
+  aasm_state: created
+  offenses_count: 2
+  passed: false
+
+two:
+  repository: two
+  commit_id: "a2s4d5f"
+  aasm_state: finished
+  offenses_count: 1
+  passed: true

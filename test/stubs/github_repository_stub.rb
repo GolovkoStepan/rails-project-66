@@ -5,6 +5,7 @@ class GithubRepositoryStub
 
   delegate :[], to: :params
 
+  # @param params [Hash]
   def initialize(params)
     @params = params.with_indifferent_access
   end

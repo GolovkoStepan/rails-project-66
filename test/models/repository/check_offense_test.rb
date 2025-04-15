@@ -22,10 +22,65 @@
 #
 #  fk_rails_...  (check_id => repository_checks.id)
 #
-require 'test_helper'
-
 class Repository::CheckOffenseTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @offense = repository_check_offenses(:one)
+  end
+
+  test 'should be valid' do
+    assert @offense.valid?
+  end
+
+  test 'should belong to check' do
+    assert_respond_to @offense, :check
+    assert_kind_of Repository::Check, @offense.check
+  end
+
+  test 'should update offenses_count on check when created or destroyed' do
+    check = repository_checks(:one)
+    initial_count = check.offenses_count
+
+    offense = check.offenses.create!(
+      message: 'New offense',
+      file_path: 'app/models/test.rb',
+      line: 10,
+      column: 5,
+      rule_name: 'Style/TestRule'
+    )
+
+    assert_equal initial_count + 1, check.reload.offenses_count
+
+    offense.destroy
+    assert_equal initial_count, check.reload.offenses_count
+  end
+
+  test 'message should be optional' do
+    @offense.message = nil
+    assert @offense.valid?
+  end
+
+  test 'file_path should be optional' do
+    @offense.file_path = nil
+    assert @offense.valid?
+  end
+
+  test 'line should be optional' do
+    @offense.line = nil
+    assert @offense.valid?
+  end
+
+  test 'column should be optional' do
+    @offense.column = nil
+    assert @offense.valid?
+  end
+
+  test 'rule_name should be optional' do
+    @offense.rule_name = nil
+    assert @offense.valid?
+  end
+
+  test 'check_id should be present' do
+    @offense.check_id = nil
+    assert_not @offense.valid?
+  end
 end

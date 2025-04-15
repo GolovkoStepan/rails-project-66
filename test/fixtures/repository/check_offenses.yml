@@ -20,13 +20,24 @@
 #
 #  fk_rails_...  (check_id => repository_checks.id)
 #
+one:
+  check: one
+  message: "Line is too long"
+  file_path: "app/models/user.rb"
+  line: 42
+  column: 80
+  rule_name: "Metrics/LineLength"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+two:
+  check: one
+  message: "Missing frozen string literal comment"
+  file_path: "app/controllers/application_controller.rb"
+  line: 1
+  rule_name: "Style/FrozenStringLiteralComment"
+
+three:
+  check: two
+  message: "Unused variable"
+  file_path: "app/services/test_service.rb"
+  line: 15
+  column: 5

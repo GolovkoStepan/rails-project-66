@@ -21,10 +21,71 @@
 #
 #  fk_rails_...  (repository_id => repositories.id)
 #
-require 'test_helper'
-
 class Repository::CheckTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @check = repository_checks(:one)
+  end
+
+  test 'should be valid' do
+    assert @check.valid?
+  end
+
+  test 'should belong to repository' do
+    assert_respond_to @check, :repository
+    assert_kind_of Repository, @check.repository
+  end
+
+  test 'should have many offenses' do
+    assert_respond_to @check, :offenses
+    assert_kind_of ActiveRecord::Associations::CollectionProxy, @check.offenses
+  end
+
+  test 'should initialize with created state' do
+    new_check = Repository::Check.new(repository: repositories(:one))
+    assert_equal 'created', new_check.aasm_state
+  end
+
+  test 'should transition from created to checking' do
+    @check.start!
+    assert_equal 'checking', @check.aasm_state
+  end
+
+  test 'should transition from checking to finished' do
+    @check.start!
+    @check.finish!
+    assert_equal 'finished', @check.aasm_state
+  end
+
+  test 'should transition from checking to failed' do
+    @check.start!
+    @check.fail!
+    assert_equal 'failed', @check.aasm_state
+  end
+
+  test 'should not transition from created to finished' do
+    assert_raises(AASM::InvalidTransition) do
+      @check.finish!
+    end
+  end
+
+  test 'should not transition from created to failed' do
+    assert_raises(AASM::InvalidTransition) do
+      @check.fail!
+    end
+  end
+
+  test 'passed should default to false' do
+    new_check = Repository::Check.new(repository: repositories(:one))
+    assert_equal false, new_check.passed
+  end
+
+  test 'repository_id should be present' do
+    @check.repository_id = nil
+    assert_not @check.valid?
+  end
+
+  test 'commit_id should be optional' do
+    @check.commit_id = nil
+    assert @check.valid?
+  end
 end

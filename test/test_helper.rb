@@ -5,12 +5,25 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 
+require 'minitest/autorun'
+require 'webmock/minitest'
+require 'mocha/minitest'
+require 'sidekiq/testing'
+require 'sidekiq_unique_jobs/testing'
+
+Sidekiq.logger.level = Logger::WARN
+
+SidekiqUniqueJobs.configure do |config|
+  config.enabled = false
+  config.logger_enabled = false
+end
+
 OmniAuth.config.test_mode = true
 
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    parallelize(workers: 1) # SQLite3 на CI Hexlet
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all

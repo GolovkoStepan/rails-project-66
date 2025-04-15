@@ -8,8 +8,8 @@ development:
   database: rails_project_66_development
 
 test:
-  <<: *default
-  database: rails_project_66_test
+  adapter: sqlite3
+  database: db/test.sqlite3
 
 production:
   <<: *default
