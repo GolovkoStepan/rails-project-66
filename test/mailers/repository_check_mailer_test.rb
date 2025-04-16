@@ -11,13 +11,13 @@ class RepositoryCheckMailerTest < ActionMailer::TestCase
     email = RepositoryCheckMailer.with(check: @check).report_a_failure
 
     assert_emails(1) { email.deliver_now }
-    assert_equal [@user.email], email.to
+    assert { email.to == [@user.email] }
 
     expected_subject = I18n.t(
       'repository_check_mailer.report_a_failure.subject',
       repository_name: @repository.name
     )
 
-    assert_equal expected_subject, email.subject
+    assert { expected_subject == email.subject }
   end
 end

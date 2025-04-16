@@ -16,7 +16,7 @@ module LinterRunner
       expected_command =
         "yarn --silent eslint -c #{Rails.root.join('lib/linters_configs/eslint.mjs')} -f json #{@repository_path}"
 
-      assert_equal expected_command, @eslint.send(:command)
+      assert { expected_command == @eslint.send(:command) }
     end
 
     def test_remap_command_result_parses_valid_json
@@ -48,7 +48,7 @@ module LinterRunner
         }
       ]
 
-      assert_equal expected_result, @eslint.send(:remap_command_result, sample_output)
+      assert { expected_result == @eslint.send(:remap_command_result, sample_output) }
     end
 
     def test_remap_command_result_skips_files_without_messages
@@ -84,7 +84,7 @@ module LinterRunner
         }
       ]
 
-      assert_equal expected_result, @eslint.send(:remap_command_result, sample_output)
+      assert { expected_result == @eslint.send(:remap_command_result, sample_output) }
     end
 
     def test_repository_full_name_extracts_last_two_directories
@@ -92,7 +92,7 @@ module LinterRunner
         :@repository_path, Pathname.new('/tmp/some/path/to/repo/owner/project')
       )
 
-      assert_equal 'owner/project', @eslint.send(:repository_full_name)
+      assert { @eslint.send(:repository_full_name) == 'owner/project' }
     end
 
     def test_trim_file_path_removes_repository_part
@@ -100,7 +100,7 @@ module LinterRunner
         :@repository_path, Pathname.new('/tmp/some/path/to/repo/owner/project')
       )
 
-      assert_equal 'app/javascript/index.js', @eslint.send(:trim_file_path, '/tmp/some/path/to/repo/owner/project/app/javascript/index.js')
+      assert { @eslint.send(:trim_file_path, '/tmp/some/path/to/repo/owner/project/app/javascript/index.js') == 'app/javascript/index.js' }
     end
   end
 end

@@ -37,7 +37,7 @@
         th scope="col" = Repository::CheckOffense.human_attribute_name(:message)
         th scope="col" = Repository::CheckOffense.human_attribute_name(:rule_name)
         th scope="col" = Repository::CheckOffense.human_attribute_name(:location)
-    
+
     tbody
       - @offenses.group_by(&:file_path).each do |file_path, offenses|
         tr

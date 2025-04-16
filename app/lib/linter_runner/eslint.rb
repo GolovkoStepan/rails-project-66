@@ -13,7 +13,7 @@ module LinterRunner
 
     # @return [Array<Hash>]
     def remap_command_result(stdout)
-      JSON.parse(stdout).map do |file_info|
+      JSON.parse(stdout).filter_map do |file_info|
         next if file_info['messages'].empty?
 
         {
@@ -27,7 +27,7 @@ module LinterRunner
             }
           end
         }
-      end.compact
+      end
     end
 
     # @return [String]

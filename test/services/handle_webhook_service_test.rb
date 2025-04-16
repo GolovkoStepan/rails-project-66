@@ -30,10 +30,10 @@ class HandleWebhookServiceTest < ActiveSupport::TestCase
     service.stub(:logger, mock_logger) { service.call }
 
     assert_mock mock_logger
-    assert_equal 1, CheckRepositoryJob.jobs.size
+    assert { CheckRepositoryJob.jobs.size == 1 }
 
     job = CheckRepositoryJob.jobs.first
-    assert_equal @repository.id, job['args'].first
+    assert { @repository.id == job['args'].first }
   end
 
   def test_unsupported_event_logs_message
@@ -44,7 +44,7 @@ class HandleWebhookServiceTest < ActiveSupport::TestCase
     service.stub(:logger, mock_logger) { service.call }
 
     assert_mock mock_logger
-    assert_equal 0, CheckRepositoryJob.jobs.size
+    assert { CheckRepositoryJob.jobs.empty? }
   end
 
   def test_call_rescues_standard_error_and_logs
@@ -55,6 +55,6 @@ class HandleWebhookServiceTest < ActiveSupport::TestCase
     service.stub(:logger, mock_logger) { service.call }
 
     assert_mock mock_logger
-    assert_equal 0, CheckRepositoryJob.jobs.size
+    assert { CheckRepositoryJob.jobs.empty? }
   end
 end

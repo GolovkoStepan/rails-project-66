@@ -22,7 +22,7 @@
       = l(@repository.updated_at, format: :default)
 
     hr
-    
+
     p
       strong.me-3 = Repository.human_attribute_name(:clone_url)
       = link_to @repository.clone_url, @repository.clone_url, target: '_blank', rel: 'noopener'
@@ -35,7 +35,7 @@
   table.table.table-striped.table-hover
     thead
       tr
-        th scope="col" 
+        th scope="col"
         th scope="col" = Repository::Check.human_attribute_name(:aasm_state)
         th scope="col" = Repository::Check.human_attribute_name(:commit_id)
         th scope="col" = Repository::Check.human_attribute_name(:passed)
@@ -46,7 +46,7 @@
         tr
           td = link_to repository_check_path(@repository, check) do
             i.bi.bi-box-arrow-up-right.mx-2
-          
+
           td = check.aasm.human_state
           td = link_to_github_commit(check.repository.full_name, check.commit_id) if check.commit_id
           td class="#{check.passed? ? 'text-success' : 'text-danger'}" = t(check.passed.to_s)

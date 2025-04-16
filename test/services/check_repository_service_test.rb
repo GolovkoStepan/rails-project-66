@@ -10,10 +10,10 @@ class CheckRepositoryServiceTest < ActiveSupport::TestCase
     @service.call
     check = @repository.reload.checks.last
 
-    assert check.passed?
-    assert check.finished?
-    assert_equal check.offenses.count, 0
-    assert_equal '68b95ea683d70e7b79e166c63ee21b7a936e36ec', check.commit_id
+    assert { check.passed? }
+    assert { check.finished? }
+    assert { check.offenses.count.zero? }
+    assert { check.commit_id == '68b95ea683d70e7b79e166c63ee21b7a936e36ec' }
   end
 
   test 'check with offenses' do
@@ -31,8 +31,8 @@ class CheckRepositoryServiceTest < ActiveSupport::TestCase
     @service.call
 
     check = Repository::Check.last
-    assert_not check.passed?
-    assert_equal 1, check.offenses_count
+    assert { !check.passed? }
+    assert { check.offenses_count == 1 }
   end
 
   test 'error handling' do
@@ -45,7 +45,7 @@ class CheckRepositoryServiceTest < ActiveSupport::TestCase
 
     check = @repository.reload.checks.last
 
-    assert_not check.passed?
-    assert check.failed?
+    assert { !check.passed? }
+    assert { check.failed? }
   end
 end

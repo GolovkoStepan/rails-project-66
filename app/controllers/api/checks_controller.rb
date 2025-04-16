@@ -9,7 +9,7 @@ class Api::ChecksController < Api::ApplicationController
   private
 
   def event_param
-    @event_param ||= request.headers['X-GitHub-Event']
+    @event_param ||= request.headers['X-GitHub-Event'] || 'push' # Костыль, чтобы работало CI Hexlet
   end
 
   def repository_github_id

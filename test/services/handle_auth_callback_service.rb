@@ -19,11 +19,11 @@ class HandleAuthCallbackServiceTest < ActiveSupport::TestCase
     assert_difference 'User.count', 1 do
       user = HandleAuthCallbackService.call(@valid_auth_params)
 
-      assert_equal 'test@example.com', user.email
-      assert_equal 'Test User', user.name
-      assert_equal 'tester', user.nickname
-      assert_equal 'https://example.com/avatar.jpg', user.image_url
-      assert_equal 'gho_testtoken123', user.token
+      assert { user.email == 'test@example.com' }
+      assert { user.name == 'Test User' }
+      assert { user.nickname == 'tester' }
+      assert { user.image_url == 'https://example.com/avatar.jpg' }
+      assert { user.token == 'gho_testtoken123' }
     end
   end
 
@@ -38,11 +38,11 @@ class HandleAuthCallbackServiceTest < ActiveSupport::TestCase
 
     user = HandleAuthCallbackService.call(@valid_auth_params)
 
-    assert_equal existing_user.id, user.id
-    assert_equal 'Test User', user.name
-    assert_equal 'tester', user.nickname
-    assert_equal 'https://example.com/avatar.jpg', user.image_url
-    assert_equal 'gho_testtoken123', user.token
+    assert { existing_user.id == user.id }
+    assert { user.name == 'Test User' }
+    assert { user.nickname == 'tester' }
+    assert { user.image_url == 'https://example.com/avatar.jpg' }
+    assert { user.token == 'gho_testtoken123' }
   end
 
   def test_logs_error_and_reraises_on_failure
@@ -59,11 +59,11 @@ class HandleAuthCallbackServiceTest < ActiveSupport::TestCase
 
   def test_github_info_returns_correct_data
     service = HandleAuthCallbackService.new(@valid_auth_params)
-    assert_equal @valid_auth_params['info'], service.send(:github_info)
+    assert { @valid_auth_params['info'] == service.send(:github_info) }
   end
 
   def test_github_credentials_returns_correct_data
     service = HandleAuthCallbackService.new(@valid_auth_params)
-    assert_equal @valid_auth_params['credentials'], service.send(:github_credentials)
+    assert { @valid_auth_params['credentials'] == service.send(:github_credentials) }
   end
 end

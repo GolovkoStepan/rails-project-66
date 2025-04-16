@@ -26,12 +26,12 @@ class CreateWebhookServiceTest < ActiveSupport::TestCase
       }
     ]
 
-    assert_equal expected_args, octokit_client_stub.create_hook_args
+    assert { expected_args == octokit_client_stub.create_hook_args }
   end
 
   test 'webhook_url generation' do
     expected_url = Rails.application.routes.url_helpers.api_checks_url
-    assert_equal expected_url, @service.send(:webhook_url)
+    assert { expected_url == @service.send(:webhook_url) }
   end
 
   test 'error handling and logging' do
@@ -40,15 +40,15 @@ class CreateWebhookServiceTest < ActiveSupport::TestCase
     octokit_client_stub.error_message        = 'test error'
 
     Rails.logger.stub(:info, ->(msg) { @logged_message = msg }) do
-      assert_nil @service.call
+      assert { @service.call.nil? }
       assert_includes @logged_message, 'CreateWebhookService failed: test error'
     end
   end
 
   test 'octokit_client initialization' do
     client = @service.send(:octokit_client)
-    assert client.is_a?(GithubClientStub)
-    assert_equal @token, client.instance_variable_get(:@access_token)
-    assert_equal true, client.instance_variable_get(:@auto_paginate)
+    assert { client.is_a?(GithubClientStub) }
+    assert { @token == client.instance_variable_get(:@access_token) }
+    assert { client.instance_variable_get(:@auto_paginate) }
   end
 end

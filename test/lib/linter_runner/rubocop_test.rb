@@ -16,7 +16,7 @@ module LinterRunner
       expected_command =
         "rubocop --config #{Rails.root.join('lib/linters_configs/rubocop.yml')} --format json #{@repository_path}"
 
-      assert_equal expected_command, @rubocop.send(:command)
+      assert { expected_command == @rubocop.send(:command) }
     end
 
     def test_remap_command_result_parses_valid_json
@@ -49,7 +49,7 @@ module LinterRunner
         }
       ]
 
-      assert_equal expected_result, @rubocop.send(:remap_command_result, sample_output)
+      assert { expected_result == @rubocop.send(:remap_command_result, sample_output) }
     end
 
     def test_remap_command_result_skips_files_without_offenses
@@ -86,7 +86,7 @@ module LinterRunner
         }
       ]
 
-      assert_equal expected_result, @rubocop.send(:remap_command_result, sample_output)
+      assert { expected_result == @rubocop.send(:remap_command_result, sample_output) }
     end
 
     def test_repository_full_name_extracts_last_two_directories
@@ -94,7 +94,7 @@ module LinterRunner
         :@repository_path, Pathname.new('/tmp/some/path/to/repo/owner/project')
       )
 
-      assert_equal 'owner/project', @rubocop.send(:repository_full_name)
+      assert { @rubocop.send(:repository_full_name) == 'owner/project' }
     end
 
     def test_trim_file_path_removes_repository_part
@@ -102,7 +102,7 @@ module LinterRunner
         :@repository_path, Pathname.new('/tmp/some/path/to/repo/owner/project')
       )
 
-      assert_equal 'app/models/user.rb', @rubocop.send(:trim_file_path, '/tmp/some/path/to/repo/owner/project/app/models/user.rb')
+      assert { @rubocop.send(:trim_file_path, '/tmp/some/path/to/repo/owner/project/app/models/user.rb') == 'app/models/user.rb' }
     end
   end
 end

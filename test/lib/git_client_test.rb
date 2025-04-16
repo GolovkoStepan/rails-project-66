@@ -16,15 +16,14 @@ class TestGitClient < ActiveSupport::TestCase
   end
 
   def test_initialize
-    assert_equal @repository_name, @git_client.repository_name
-    assert_equal @repository_url, @git_client.repository_url
-    assert_equal GitClient::STORAGE_PATH.join(@repository_name), @git_client.full_repository_path
+    assert { @repository_name == @git_client.repository_name }
+    assert { @repository_url == @git_client.repository_url }
+    assert { GitClient::STORAGE_PATH.join(@repository_name) == @git_client.full_repository_path }
   end
 
   def test_full_repository_path
     expected_path = GitClient::STORAGE_PATH.join(@repository_name)
-    assert_equal expected_path, @git_client.full_repository_path
-    assert_same @git_client.full_repository_path, @git_client.full_repository_path
+    assert { expected_path == @git_client.full_repository_path }
   end
 
   def test_clone_repository_success
@@ -34,7 +33,7 @@ class TestGitClient < ActiveSupport::TestCase
       .with("git clone #{@repository_url} #{@git_client.full_repository_path}")
       .returns(true)
 
-    assert @git_client.clone_repository
+    assert { @git_client.clone_repository }
   end
 
   def test_clone_repository_failure
@@ -44,7 +43,7 @@ class TestGitClient < ActiveSupport::TestCase
       .with("git clone #{@repository_url} #{@git_client.full_repository_path}")
       .returns(false)
 
-    assert_not @git_client.clone_repository
+    assert { !@git_client.clone_repository }
   end
 
   def test_remove_repository_success
@@ -54,7 +53,7 @@ class TestGitClient < ActiveSupport::TestCase
       .stubs(:system).with("rm -rf #{@git_client.full_repository_path}")
       .returns(true)
 
-    assert @git_client.remove_repository
+    assert { @git_client.remove_repository }
   end
 
   def test_remove_repository_failure
@@ -64,7 +63,7 @@ class TestGitClient < ActiveSupport::TestCase
       .with("rm -rf #{@git_client.full_repository_path}")
       .returns(false)
 
-    assert_not @git_client.remove_repository
+    assert { !@git_client.remove_repository }
   end
 
   def test_last_commit_hash
@@ -76,7 +75,7 @@ class TestGitClient < ActiveSupport::TestCase
       .with("git -C #{@git_client.full_repository_path} rev-parse HEAD")
       .returns([fake_commit_hash, nil])
 
-    assert_equal fake_commit_hash, @git_client.last_commit_hash
+    assert { fake_commit_hash == @git_client.last_commit_hash }
   end
 
   def test_last_commit_hash_with_empty_repository
@@ -85,6 +84,6 @@ class TestGitClient < ActiveSupport::TestCase
       .with("git -C #{@git_client.full_repository_path} rev-parse HEAD")
       .returns(['', nil])
 
-    assert_equal '', @git_client.last_commit_hash
+    assert { @git_client.last_commit_hash == '' }
   end
 end
