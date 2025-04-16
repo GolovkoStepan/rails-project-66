@@ -1,0 +1,97 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0000c929f85a4fb652e18fd7de63a817da975e118b640a15ce773ecc5c53d0af",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/web/repositories_controller.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "RepositoryForm.with(:user => current_user).from(params.require(:repository))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Web::RepositoriesController",
+        "method": "create"
+      },
+      "user_input": "params.require(:repository)",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "525d7ffaee1833fdd28cc974d0183b877205b8229328c5dbdc2fe8dfb0abca34",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/lib/git_client.rb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture2(\"git -C #{full_repository_path} rev-parse HEAD\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GitClient",
+        "method": "last_commit_hash"
+      },
+      "user_input": "full_repository_path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "c0102afd2c24a76e5696ffa279337eab7750b95631f3e8187c0e554c3bfe145b",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/lib/git_client.rb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"rm -rf #{full_repository_path}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GitClient",
+        "method": "remove_repository"
+      },
+      "user_input": "full_repository_path",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "fc33139df0171a41ece4d8a838a5fccbfa39f70b61c6fac92320568065cadc5b",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/lib/git_client.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "system(\"git clone #{repository_url} #{full_repository_path}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "GitClient",
+        "method": "clone_repository"
+      },
+      "user_input": "repository_url",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.0.2"
+}

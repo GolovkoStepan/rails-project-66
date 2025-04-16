@@ -2,6 +2,19 @@
 
 require 'sidekiq-unique-jobs'
 
+if Rails.env.test?
+  require 'sidekiq/testing'
+  require 'sidekiq_unique_jobs/testing'
+
+  Sidekiq::Testing.inline!
+  Sidekiq.logger.level = Logger::WARN
+
+  SidekiqUniqueJobs.configure do |config|
+    config.enabled = false
+    config.logger_enabled = false
+  end
+end
+
 Sidekiq.configure_server do |config|
   Rails.logger = Sidekiq.logger
 

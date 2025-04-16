@@ -11,6 +11,7 @@ require 'mocha/minitest'
 require 'sidekiq/testing'
 require 'sidekiq_unique_jobs/testing'
 
+Sidekiq::Testing.fake!
 Sidekiq.logger.level = Logger::WARN
 
 SidekiqUniqueJobs.configure do |config|

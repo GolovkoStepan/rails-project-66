@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# test/services/handle_webhook_service_test.rb
-
-require 'test_helper'
-
 class HandleWebhookServiceTest < ActiveSupport::TestCase
   def setup
     @repository = repositories(:one)
@@ -11,7 +7,7 @@ class HandleWebhookServiceTest < ActiveSupport::TestCase
   end
 
   def teardown
-    Sidekiq::Job.clear_all
+    CheckRepositoryJob.jobs.clear
   end
 
   def test_ping_handler_logs_message
