@@ -44,8 +44,9 @@ ru:
     auth:
       callback:
         success: Вы успешно вошли в систему!
+        error: Ошибка при входе в систему!
 
-      delete:
+      logout:
         success: Вы успешно вышли из системы!
 
     repositories:
@@ -53,6 +54,7 @@ ru:
         run_check: Запустить проверку
         repository_not_found: Репозиторий не найден
         no_checks: У репозитория не было запущено ни одной проверки
+        not_found: Репозиторий не найден
 
       index:
         title: Список репозиториев
@@ -76,3 +78,4 @@ ru:
           title: "Проверка репозитория %{repository_name}"
           back: Вернуться к репозиторию
           no_offenses: Нарушений не найдено
+          not_found: Проверка не найдена

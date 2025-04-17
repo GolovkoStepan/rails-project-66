@@ -4,7 +4,7 @@ setup: install db-prepare
 .PHONY: start
 start:
 	rm -rf tmp/pids/server.pid || true
-	bin/rails s
+	bundle exec foreman start -f Procfile.dev
 
 .PHONY: install
 install:
@@ -27,4 +27,5 @@ test:
 .PHONY: lint
 lint:
 	bundle exec rubocop
+	bundle exec brakeman --no-pager
 	bundle exec slim-lint app/views/

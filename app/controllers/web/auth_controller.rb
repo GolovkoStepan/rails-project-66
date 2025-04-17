@@ -5,14 +5,14 @@ class Web::AuthController < Web::ApplicationController
     user = HandleAuthCallbackService.call(request.env['omniauth.auth'])
     session[:user_id] = user.id
 
-    redirect_to root_path, notice: t('shared.auth.success')
+    redirect_to root_path, notice: t('.success')
   rescue StandardError
-    redirect_to root_path, alert: t('shared.auth.error')
+    redirect_to root_path, alert: t('.error')
   end
 
   def logout
     session[:user_id] = nil
 
-    redirect_to root_path, notice: t('shared.auth.logout')
+    redirect_to root_path, notice: t('.success')
   end
 end
